@@ -42,6 +42,7 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
 
 ## 3. How to run the container
 
+1. Change directory to the directory containing the Makefile.
 1. Run the container.
 
     ```sh
