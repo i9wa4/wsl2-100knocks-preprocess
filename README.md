@@ -8,18 +8,17 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
 
 ## 2. Installation
 
-1. Run Ubuntu.
-1. Clone this repository.
-1. Change directory to the directory containing the Makefile.
-1. Install make.
+1. Run Ubuntu and install make.
 
     ```sh
     sudo apt install -y make
     ```
 
+1. Clone this repository.
 1. Execute step1.
 
     ```sh
+    cd /path/to/repo
     make setup-step1
     ```
 
@@ -37,15 +36,16 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
 1. Execute step2.
 
     ```sh
+    cd /path/to/repo
     make setup-step2
     ```
 
 ## 3. How to run the container
 
-1. Change directory to the directory containing the Makefile.
 1. Run the container.
 
     ```sh
+    cd /path/to/repo
     make start-knock
     ```
 
