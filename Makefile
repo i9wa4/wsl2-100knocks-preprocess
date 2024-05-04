@@ -3,26 +3,33 @@ SHELL := /usr/bin/env bash
 .SHELLFLAGS := -euo pipefail -o posix -c
 
 
+.PHONY: setup-step1
 setup-step1: write-wsl-conf apt docker-install prompt-restart
 
+.PHONY: setup-step2
 setup-step2: docker-systemd setup-knock setup-done
 
 
+.PHONY: prompt-restart
 prompt-restart:
 	@echo "Shutdown Ubuntu and restart WSL2."
 
+.PHONY: setup-done
 setup-done:
 	@echo "Setup for 100-knocks is done!"
 
+.PHONY: write-wsl-conf
 write-wsl-conf:
 	# enable systemd
 	echo "[boot]" | sudo tee /etc/wsl.conf
 	echo "systemd=true" | sudo tee -a /etc/wsl.conf
 
+.PHONY: apt
 apt:
 	sudo apt update
 	sudo apt upgrade -y
 
+.PHONY: docker-install
 docker-install:
 	# https://docs.docker.com/engine/install/ubuntu/
 	# Uninstall old versions
@@ -46,21 +53,25 @@ docker-install:
 	# sudo groupadd docker
 	sudo usermod -aG docker "$${USER}"
 
+.PHONY: docker-systemd
 docker-systemd:
 	# configure the daemon with systemd
 	sudo systemctl daemon-reload
 	sudo systemctl enable docker
 	sudo systemctl start docker
 
+.PHONY: setup-knock
 setup-knock:
 	mkdir -p "$${HOME}"/work/git/
 	cd "$${HOME}"/work/git/ \
 	&& git clone https://github.com/The-Japan-DataScientist-Society/100knocks-preprocess
 
+.PHONY: start-knock
 start-knock:
 	cd "$${HOME}"/work/git/100knocks-preprocess \
 	&& docker compose up -d --wait
 
+.PHONY: stop-knock
 stop-knock:
 	cd "$${HOME}"/work/git/100knocks-preprocess \
 	&& docker compose stop
