@@ -1,13 +1,16 @@
-MAKEFLAGS += --warn-undefined-variables
 SHELL := /usr/bin/env bash
-.SHELLFLAGS := -euo pipefail -o posix -c
+.SHELLFLAGS := -o errexit -o nounset -o pipefail -o posix -c
+.DEFAULT_GOAL := help
+
+
+KNOCK_REPO_DIR :=  ~/src/github.com/The-Japan-DataScientist-Society/100knocks-preprocess
 
 
 .PHONY: setup-step1
-setup-step1: write-wsl-conf apt docker-install prompt-restart
+setup-step1: write-wsl-conf apt docker-install prompt-restart  ## set up step1
 
 .PHONY: setup-step2
-setup-step2: docker-systemd setup-knock setup-done
+setup-step2: docker-systemd setup-knock setup-done  ## set up step2
 
 
 .PHONY: prompt-restart
@@ -62,16 +65,21 @@ docker-systemd:
 
 .PHONY: setup-knock
 setup-knock:
-	mkdir -p "$${HOME}"/work/git/
-	cd "$${HOME}"/work/git/ \
-	&& git clone https://github.com/The-Japan-DataScientist-Society/100knocks-preprocess
+	git clone https://github.com/The-Japan-DataScientist-Society/100knocks-preprocess $(KNOCK_REPO_DIR)
 
 .PHONY: start-knock
-start-knock:
-	cd "$${HOME}"/work/git/100knocks-preprocess \
+start-knock:  ## start container
+	cd $(KNOCK_REPO_DIR) \
 	&& docker compose up -d --wait
 
 .PHONY: stop-knock
-stop-knock:
-	cd "$${HOME}"/work/git/100knocks-preprocess \
+stop-knock:  ## stop container
+	cd $(KNOCK_REPO_DIR) \
 	&& docker compose stop
+
+.PHONY: help
+help:  ## print this help
+	@echo 'Usage: make [target]'
+	@echo ''
+	@echo 'Targets:'
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

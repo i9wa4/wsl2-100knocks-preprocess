@@ -15,10 +15,15 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
     ```
 
 1. Clone this repository.
+
+    ```sh
+    git clone https://github.com/i9wa4/wsl2-100knocks-preprocess ~/src/github.com/i9wa4/wsl2-100knocks-preprocess
+    ```
+
 1. Execute step1.
 
     ```sh
-    cd /path/to/repo
+    cd ~/src/github.com/i9wa4/wsl2-100knocks-preprocess
     make setup-step1
     ```
 
@@ -36,7 +41,7 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
 1. Execute step2.
 
     ```sh
-    cd /path/to/repo
+    cd ~/src/github.com/i9wa4/wsl2-100knocks-preprocess
     make setup-step2
     ```
 
@@ -45,7 +50,7 @@ Set up [The-Japan-DataScientist-Society/100knocks-preprocess](https://github.com
 1. Run the container.
 
     ```sh
-    cd /path/to/repo
+    cd ~/src/github.com/i9wa4/wsl2-100knocks-preprocess
     make start-knock
     ```
 
